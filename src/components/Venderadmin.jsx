@@ -1,6 +1,31 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
+import ListVender from './ListVender'
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function Venderadmin() {
+
+    const [venderlist, setvenderlist] = useState(null);
+
+    useEffect(() => {
+      (async()=>{
+        try {
+            const res = await axios.get('https://rfpdemo.velsof.com/api/vendorlist');
+
+            if(res.data.errors){
+                toast.error("Error in Vendor list fetching");
+            }
+            else{
+                console.log('res for vendors: ',res);
+                setvenderlist(res.data.vendors);
+            }
+        } catch (error) {
+            toast.error(error.message);
+        }
+      })();
+    }, [])
+    
+
     return <>
             <div class="page-content">
                 <div class="container-fluid">
@@ -50,6 +75,10 @@ function Venderadmin() {
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {/* {venderlist && venderlist.map((vender,index)=>{
+                                                    <ListVender index firstname={vender} lastname='World' email='hello@gmail.com' mobile='54545454' status='pending'/>
+                                                }) } */}
+                                                
                                                 <tr>
                                                     <th scope="row">1</th>
                                                     <td>Aman</td>

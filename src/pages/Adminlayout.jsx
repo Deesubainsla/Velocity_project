@@ -6,6 +6,7 @@ import RFPadmin from '../components/RFPadmin'
 import Useradmin from '../components/Useradmin'
 import { mycontext } from '../contextapi/context'
 import { useContext } from 'react'
+import Categoryadmin from '../components/Categoryadmin'
 
 function Adminlayout() {
     const {setuser, setrole} = useContext(mycontext);
@@ -58,23 +59,23 @@ function Adminlayout() {
 
                             <ul className="metismenu list-unstyled" id="side-menu">
                                 <li>
-                                    <NavLink to="/admin" className={({isActive})=>isActive?"text-orange-500":""} >Dashboard</NavLink>
+                                    <NavLink to="/admin" className={({isActive})=>isActive?"text-primary":"text-secondary"} >Dashboard</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/admin/vendor" className={({isActive})=>isActive?"text-orange-500":""} >Vendors</NavLink>
+                                    <NavLink to="/admin/vendor" className={({isActive})=>isActive?"text-danger":"text-secondary"} >Vendors</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/admin/rfp" className={({isActive})=>isActive?"text-orange-500":""} >RFP Lists</NavLink>
+                                    <NavLink to="/admin/rfp" className={({isActive})=>isActive?"text-danger":"text-secondary"} >RFP Lists</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/admin" className={({isActive})=>isActive?"text-orange-500":""} >RFP Quotes</NavLink>
+                                    <NavLink to="/admin" className={({isActive})=>isActive?"text-danger":"text-secondary"} >RFP Quotes</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/admin/user" className={({isActive})=>isActive?"text-orange-500":""} >User Management</NavLink>
+                                    <NavLink to="/admin/user" className={({isActive})=>isActive?"text-danger":"text-secondary"} >User Management</NavLink>
                                 </li>
 
                                 <li>
-                                    <NavLink to="/admin" className={({isActive})=>isActive?"text-orange-500":""} >Category</NavLink>
+                                    <NavLink to="/admin/category" className={({isActive})=>isActive?"text-danger":"text-secondary"} >Category</NavLink>
                                 </li>
 
                             </ul>
@@ -94,6 +95,7 @@ function Adminlayout() {
                             <Route path='rfp' element={<RFPadmin/>} />
                             <Route path='user' element={<Useradmin/>} />
                             <Route path='vendor' element={<Venderadmin/>} />
+                            <Route path='category' element={<Categoryadmin/>} />
                           
                         </Routes>
                     
