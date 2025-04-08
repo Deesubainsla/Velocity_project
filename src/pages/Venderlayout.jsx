@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, Routes, Route } from 'react-router-dom'
 import Dashbord from '../components/Dashbord'
-import Venderadmin from '../components/Venderadmin'
+import Venderadmin from '../components/Vendoradmin'
 import { mycontext } from '../contextapi/context'
 import { useContext } from 'react'
 

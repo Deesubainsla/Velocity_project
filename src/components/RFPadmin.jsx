@@ -1,6 +1,33 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
+import axios from 'axios'
+import toast from 'react-hot-toast';
+import Listrfp from './Listrfp';
 
 function RFPadmin() {
+
+    const [rfplist, setrfplist] = useState(null);
+
+    useEffect(() => {
+      (async()=>{
+            try {
+                const userid = localStorage.getItem('userid');
+                const token = localStorage.getItem('token');
+                const res = await axios.get(`https://rfpdemo.velsof.com/api/rfp/getrfp/${userid}`,{
+                    headers:{
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                setrfplist(res.data.rfps);
+
+                // console.log('rfp list: ',res);
+            } catch (error) {
+                toast.error(error.message);
+            }
+      })();
+    }, [])
+    
+
     return <>
             <div class="page-content">
                 <div class="container-fluid">
@@ -53,50 +80,12 @@ function RFPadmin() {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th scope="row">232/44234/4234</th>
-                                                    <td>Keyboard XYZ</td>
-                                                    <td>13-Oct-2023</td>
-                                                    <td>10,000</td>
-                                                    <td>10,0000</td>
-                                                    <td><span class="badge badge-pill badge-success">Open</span></td>
-                                                    <td>
-                                                        <a href="#" title="Close RFP" class="text-danger"><i class="mdi mdi-circle-off-outline"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">232/44234/4234</th>
-                                                    <td>Keyboard XYZ</td>
-                                                    <td>13-Oct-2023</td>
-                                                    <td>10,000</td>
-                                                    <td>10,0000</td>
-                                                    <td><span class="badge badge-pill badge-success">Open</span></td>
-                                                    <td>
-                                                        <a href="#" title="Close RFP" class="text-danger"><i class="mdi mdi-circle-off-outline"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">232/44234/4234</th>
-                                                    <td>Keyboard XYZ</td>
-                                                    <td>13-Oct-2023</td>
-                                                    <td>10,000</td>
-                                                    <td>10,0000</td>
-                                                    <td><span class="badge badge-pill badge-success">Open</span></td>
-                                                    <td>
-                                                        <a href="#" title="Close RFP" class="text-danger"><i class="mdi mdi-circle-off-outline"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">232/44234/4234</th>
-                                                    <td>Keyboard XYZ</td>
-                                                    <td>13-Oct-2023</td>
-                                                    <td>10,000</td>
-                                                    <td>10,0000</td>
-                                                    <td><span class="badge badge-pill badge-danger">Close</span></td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
+                                                
+                                                {rfplist && rfplist.map((rfp)=>(
+                                                    <Listrfp key={rfp.id} id={rfp.id} rfpno={rfp.rfp_no} tittle={rfp.item_name} lastdate={rfp.last_date} min={rfp.minimum_price} max={rfp.maximum_price} status={rfp.rfp_status} />
+                                                ))}
 
+                                                
                                             </tbody>
                                         </table>
                                     </div>

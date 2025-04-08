@@ -26,6 +26,7 @@ function Login() {
             else{
                 localStorage.setItem('token',res.data.token);
                 localStorage.setItem('role', res.data.type);
+                localStorage.setItem('userid', res.data.user_id);
                 setuser(res.data.token);
                 setrole(res.data.type);
                 navigate(`/${res.data.type}`);
@@ -106,6 +107,10 @@ function Login() {
                                             </div>
                                             <div class="mt-4 text-center">
                                                 <Link to='/registervender' >Register as Vendor</Link>
+                                                {/* <a href="register.html" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Register as Vendor</a> */}
+                                            </div>
+                                            <div class="mt-4 text-center">
+                                                <Link to='/registeradmin' >Register as Admin</Link>
                                                 {/* <a href="register.html" class="text-muted"><i class="mdi mdi-lock mr-1"></i> Register as Vendor</a> */}
                                             </div>
                                             <div class="mt-4 text-center">

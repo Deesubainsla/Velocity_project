@@ -10,13 +10,21 @@ function Venderadmin() {
     useEffect(() => {
       (async()=>{
         try {
-            const res = await axios.get('https://rfpdemo.velsof.com/api/vendorlist');
+            const token = localStorage.getItem('token');
+            const res = await axios.get('https://rfpdemo.velsof.com/api/vendorlist',{
+                headers:{
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            // console.log('Vendor list: ',res);
 
             if(res.data.errors){
                 toast.error("Error in Vendor list fetching");
             }
             else{
-                console.log('res for vendors: ',res);
+                // console.log('res for vendors: ',res);
+                // toast.success('Vender data fetched successfully');
                 setvenderlist(res.data.vendors);
             }
         } catch (error) {
@@ -66,8 +74,7 @@ function Venderadmin() {
                                             <thead>
                                                 <tr>
                                                     <th>S. No.</th>
-                                                    <th>First name</th>
-                                                    <th>Last Name</th>
+                                                    <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Contact No</th>
                                                     <th>Status</th>
@@ -75,58 +82,12 @@ function Venderadmin() {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {/* {venderlist && venderlist.map((vender,index)=>{
-                                                    <ListVender index firstname={vender} lastname='World' email='hello@gmail.com' mobile='54545454' status='pending'/>
-                                                }) } */}
+
+                                                {venderlist && venderlist.map((vender,index)=>(
+                                                    <ListVender index={index+1} name={vender.name} email={vender.email} mobile={vender.mobile} status={vender.status} id={vender.id}/>
+                                                )) }
                                                 
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Aman</td>
-                                                    <td>Sharma</td>
-                                                    <td>aman@gmail.com</td>
-                                                    <td>000000000</td>
-                                                    <td><span class="badge badge-pill badge-success">Active</span></td>
-                                                    <td>
-                                                        <a href="editvendor.html" class="text-primary mr-2" title="Edit"><i class="mdi mdi-pencil"></i></a>
-                                                        <a href="#" class="text-danger"><i class="mdi mdi-circle-off-outline"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Gagan</td>
-                                                    <td>Kumar</td>
-                                                    <td>gagan456@gmail.com</td>
-                                                    <td>000000000</td>
-                                                    <td><span class="badge badge-pill badge-success">Active</span></td>
-                                                    <td>
-                                                        <a href="editvendor.html" class="text-primary mr-2" title="Edit"><i class="mdi mdi-pencil"></i></a>
-                                                        <a href="#" class="text-danger"><i class="mdi mdi-circle-off-outline"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Vinay</td>
-                                                    <td>Singh</td>
-                                                    <td>vinay009@gmail.com</td>
-                                                    <td>000000000</td>
-                                                    <td><span class="badge badge-pill badge-success">Active</span></td>
-                                                    <td>
-                                                        <a href="editvendor.html" class="text-primary mr-2" title="Edit"><i class="mdi mdi-pencil"></i></a>
-                                                        <a href="#" class="text-danger"><i class="mdi mdi-circle-off-outline"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">4</th>
-                                                    <td>Ravi</td>
-                                                    <td>Raj</td>
-                                                    <td>ravi@gmail.com</td>
-                                                    <td>000000000</td>
-                                                    <td><span class="badge badge-pill badge-danger">Inactive</span></td>
-                                                    <td>
-                                                        <a href="editvendor.html" class="text-primary mr-2" title="Edit"><i class="mdi mdi-pencil"></i></a>
-                                                        <a href="#" class="text-danger"><i class="mdi mdi-circle-off-outline"></i></a>
-                                                    </td>
-                                                </tr>
+                                                
 
                                             </tbody>
                                         </table>

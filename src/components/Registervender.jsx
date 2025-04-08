@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import axios from 'axios';
@@ -9,21 +9,37 @@ function Registervender() {
 
     const navigate = useNavigate();
     const {register, handleSubmit, formState:{errors}} = useForm();
+    const [categorylist, setcategorylist] = useState(null);
+
+    
+    useEffect(() => {
+      (async()=>{
+        try {
+            const res = await axios.get('https://rfpdemo.velsof.com/api/categories');
+
+            const newarr = Object.values(res.data.categories);
+            setcategorylist(newarr);
+        } catch (error) {
+            toast.error(error.message);
+        }
+      })();
+    }, [])
+    
 
     const onregister = async(data)=>{
         const employeeno = parseInt(data.employeecount);
-        const normaldata = {
-                    'firstname': data.firstname,
-                    'lastname': data.lastname,
-                    'email': data.email,
-                    'password': data.password,
-                    'revenue': data.revenue,
-                    'no_of_employes': employeeno,
-                    'category': data.category,
-                    'pancard_no': data.panno,
-                    'gst_no': data.gstno,
-                    'mobile': data.phnno
-                }
+        // const normaldata = {
+        //             'firstname': data.firstname,
+        //             'lastname': data.lastname,
+        //             'email': data.email,
+        //             'password': data.password,
+        //             'revenue': data.revenue,
+        //             'no_of_employes': employeeno,
+        //             'category': data.category,
+        //             'pancard_no': data.panno,
+        //             'gst_no': data.gstno,
+        //             'mobile': data.phnno
+        //         }
         // console.log('data: ',newdata);
         
         const newdata = new FormData();
@@ -32,13 +48,13 @@ function Registervender() {
         newdata.append('email',data.email);
         newdata.append('password',data.password);
         newdata.append('revenue', data.revenue);
-        newdata.append('no_of_employes', employeeno);
+        newdata.append('no_of_employees', employeeno);
         newdata.append('category', data.category);
         newdata.append('pancard_no', data.panno);
         newdata.append('gst_no', data.gstno);
         newdata.append('mobile', data.phnno);
 
-        console.log('newdata: ',normaldata);
+        // console.log('newdata: ',normaldata);
         if(data.password != data.cnfrmpassword){
             toast.error("Password and Confirm Password Mismatched")
         }
@@ -173,10 +189,13 @@ function Registervender() {
                                                         <label for="Categories">Categories*</label>
                                                         <select  multiple {...register('category',{required:"Please Select at least One Category"})} defaultValue=""   >
                                                             
-                                                            <option value="1">Software</option>
+                                                            {categorylist && categorylist.map((category)=>(
+                                                                <option key={category.id} value={category.id}>{category.name}</option>
+                                                            ))}
+                                                            {/* <option value="1">Software</option>
                                                             <option value="2">Hardware</option>
                                                             <option value="3">Office Furniture</option>
-                                                            <option value="4">Stationery</option>
+                                                            <option value="4">Stationery</option> */}
                                                         </select>
                                                         {errors.category && <p className='text-danger'>{errors.category.message}</p>}
                                                     </div>

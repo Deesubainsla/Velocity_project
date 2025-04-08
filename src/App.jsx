@@ -8,6 +8,7 @@ import Forgotpass from "./components/Forgotpass.jsx"
 import { useContext } from "react"
 import { mycontext } from "./contextapi/context.jsx"
 import Venderlayout from "./pages/Venderlayout.jsx"
+import RegisterAdmin from "./components/RegisterAdmin.jsx"
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/" element={<Login/>} />
           <Route path="/registervender" element={<Registervender/>} />
           <Route path="/forgotpass" element={<Forgotpass/>} />
+          <Route path="/registeradmin" element={<RegisterAdmin/>} />
 
           {/* for Admin */}
           <Route path="/admin/*" element={<AdminAuth Component={Adminlayout}/>} />

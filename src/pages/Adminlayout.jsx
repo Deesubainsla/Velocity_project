@@ -1,12 +1,14 @@
 import React from 'react'
 import { Routes, Route, NavLink} from 'react-router-dom'
 import Dashbord from '../components/Dashbord'
-import Venderadmin from '../components/Venderadmin'
+import Venderadmin from '../components/Vendoradmin'
 import RFPadmin from '../components/RFPadmin'
 import Useradmin from '../components/Useradmin'
 import { mycontext } from '../contextapi/context'
 import { useContext } from 'react'
 import Categoryadmin from '../components/Categoryadmin'
+import RFPquotes from '../components/RFPquotes'
+import Getquotesadmin from '../components/Getquotesadmin'
 
 function Adminlayout() {
     const {setuser, setrole} = useContext(mycontext);
@@ -68,11 +70,9 @@ function Adminlayout() {
                                     <NavLink to="/admin/rfp" className={({isActive})=>isActive?"text-danger":"text-secondary"} >RFP Lists</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/admin" className={({isActive})=>isActive?"text-danger":"text-secondary"} >RFP Quotes</NavLink>
+                                    <NavLink to="/admin/rfpquotes" className={({isActive})=>isActive?"text-danger":"text-secondary"} >RFP Quotes</NavLink>
                                 </li>
-                                <li>
-                                    <NavLink to="/admin/user" className={({isActive})=>isActive?"text-danger":"text-secondary"} >User Management</NavLink>
-                                </li>
+                                
 
                                 <li>
                                     <NavLink to="/admin/category" className={({isActive})=>isActive?"text-danger":"text-secondary"} >Category</NavLink>
@@ -93,9 +93,11 @@ function Adminlayout() {
                         <Routes>
                             <Route path='/' element={<Dashbord/>} />
                             <Route path='rfp' element={<RFPadmin/>} />
-                            <Route path='user' element={<Useradmin/>} />
                             <Route path='vendor' element={<Venderadmin/>} />
                             <Route path='category' element={<Categoryadmin/>} />
+                            <Route path='rfpquotes' element={<RFPquotes/>} />
+                            <Route path='rfpqotes/quotes/:rfpid' element={<Getquotesadmin/>} />
+                            
                           
                         </Routes>
                     
