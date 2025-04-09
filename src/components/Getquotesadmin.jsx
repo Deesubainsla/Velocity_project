@@ -20,7 +20,13 @@ function Getquotesadmin() {
                 })
 
                 if(res.data.error){
-                    toast.error(res.data.error);
+                    if(res.data.error == "No quotes available"){
+                        toast.success('No Quotes are Present for this RFP');
+                    }
+                    else{
+                        toast.error(res.data.error);
+                    }
+                    
                 }
                 else{
                     setquotelist(res.data.quotes);

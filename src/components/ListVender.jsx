@@ -3,7 +3,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 
 function ListVender({index, name, email, mobile, status, id}) {
-
+    // console.log('vender name:',name, ' vendorid: ',id);
     const action = async(act)=>{
         try {
             

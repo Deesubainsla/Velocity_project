@@ -9,15 +9,15 @@ function Categoryadmin() {
     const [categorylist, setcategorylist] = useState(null);
 
     useEffect(() => {
-      (async()=>{
+        (async () => {
             try {
                 const res = await axios.get('https://rfpdemo.velsof.com/api/categories');
 
                 // console.log('res from category: ',res);
-                if(res.data.error){
+                if (res.data.error) {
                     toast.error('Error in Category list fetching');
                 }
-                else{
+                else {
                     const newarr = Object.values(res.data.categories);
                     // console.log('newarr: ',newarr);
                     setcategorylist(newarr);
@@ -25,9 +25,9 @@ function Categoryadmin() {
             } catch (error) {
                 toast.error(error.message);
             }
-      })();
+        })();
     }, [])
-    
+
 
     return <>
         <div class="page-content">
@@ -62,7 +62,11 @@ function Categoryadmin() {
                                         <div class="col-lg-3">
                                             <h4 class="card-title">Categories</h4>
                                         </div>
-                                        <button className=''>+add Category</button>
+                                        <div class="col-lg-9 text-right">
+                                            <div class="headerButtons">
+                                                <a href="addrfp.html" class="btn btn-sm btn-success "><i class="mdi mdi-plus"></i> Add Category</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="table-responsive">
@@ -73,18 +77,18 @@ function Categoryadmin() {
                                                 <th>Category Name</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
-                                                
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                categorylist && categorylist.map((category,index)=>(
-                                                    <ListCategory index={index+1} name={category.name} status={category.status} id={category.id}/>
-                                                )) 
+                                                categorylist && categorylist.map((category, index) => (
+                                                    <ListCategory index={index + 1} name={category.name} status={category.status} id={category.id} />
+                                                ))
                                             }
 
-                                            
-                                            
+
+
 
                                         </tbody>
                                     </table>

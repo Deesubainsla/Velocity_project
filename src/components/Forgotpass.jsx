@@ -1,7 +1,33 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { useForm } from 'react-hook-form'
 
 function Forgotpass() {
+    const {register, handleSubmit, formState:{errors}} = useForm();
+    const navigate = useNavigate();
+
+    const sendotp = async(data)=>{
+
+        
+        try {
+            const res = await axios.post('https://rfpdemo.velsof.com/api/forgetPassword',{
+                    email: data.email
+            })
+            console.log('res: ',res);
+            if(res.data.error){
+                toast.error('Problem in sending OTP');
+            }
+            else{
+                navigate('/otp');
+                toast.success('OTP Sent successfully');
+            }
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
+
     return <>
         <div>
             <div class="home-btn d-none d-sm-block">
@@ -24,11 +50,12 @@ function Forgotpass() {
                                 </div>
                                 <div class="card-body pt-0">
                                     <div class="p-2">
-                                        <form class="form-horizontal" action="index.html">
+                                        <form class="form-horizontal" onSubmit={handleSubmit(sendotp)}>
 
                                             <div class="form-group">
                                                 <label for="username">Email</label>
-                                                <input type="text" class="form-control" id="email" placeholder="Enter Email" />
+                                                <input {...register('email',{required:"Please Provide Registered Email"})} type="text" class="form-control" id="email" placeholder="Enter Registered Email" />
+                                                {errors.email && <span className='text-danger'>{errors.email.message}</span> }
                                             </div>
 
                                             

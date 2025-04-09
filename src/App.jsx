@@ -9,6 +9,7 @@ import { useContext } from "react"
 import { mycontext } from "./contextapi/context.jsx"
 import Venderlayout from "./pages/Venderlayout.jsx"
 import RegisterAdmin from "./components/RegisterAdmin.jsx"
+import Otpandresetpass from "./components/Otpandresetpass.jsx"
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/registervender" element={<Registervender/>} />
           <Route path="/forgotpass" element={<Forgotpass/>} />
           <Route path="/registeradmin" element={<RegisterAdmin/>} />
+          <Route path="/otp" element={<Otpandresetpass/>} />
 
           {/* for Admin */}
           <Route path="/admin/*" element={<AdminAuth Component={Adminlayout}/>} />

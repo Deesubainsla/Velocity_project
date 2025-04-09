@@ -9,6 +9,7 @@ import { useContext } from 'react'
 import Categoryadmin from '../components/Categoryadmin'
 import RFPquotes from '../components/RFPquotes'
 import Getquotesadmin from '../components/Getquotesadmin'
+import AddRFP from '../components/AddRFP'
 
 function Adminlayout() {
     const {setuser, setrole} = useContext(mycontext);
@@ -97,6 +98,7 @@ function Adminlayout() {
                             <Route path='category' element={<Categoryadmin/>} />
                             <Route path='rfpquotes' element={<RFPquotes/>} />
                             <Route path='rfpqotes/quotes/:rfpid' element={<Getquotesadmin/>} />
+                            <Route path='rfp/addrfp' element={<AddRFP/>} />
                             
                           
                         </Routes>

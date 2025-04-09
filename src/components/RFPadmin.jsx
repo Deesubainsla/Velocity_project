@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast';
 import Listrfp from './Listrfp';
+import { Link } from 'react-router-dom';
 
 function RFPadmin() {
 
@@ -61,7 +62,7 @@ function RFPadmin() {
                                             </div>
                                             <div class="col-lg-9 text-right">
                                                 <div class="headerButtons">
-                                                    <a href="addrfp.html" class="btn btn-sm btn-success "><i class="mdi mdi-plus"></i> Add RFP</a>
+                                                    <Link className='text-success' to="/admin/rfp/addrfp" >+Add rfp</Link>
                                                 </div>
                                             </div>
                                         </div>

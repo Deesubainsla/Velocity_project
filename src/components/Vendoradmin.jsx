@@ -84,7 +84,7 @@ function Venderadmin() {
                                             <tbody>
 
                                                 {venderlist && venderlist.map((vender,index)=>(
-                                                    <ListVender index={index+1} name={vender.name} email={vender.email} mobile={vender.mobile} status={vender.status} id={vender.id}/>
+                                                    <ListVender index={index+1} name={vender.name} email={vender.email} mobile={vender.mobile} status={vender.status} id={vender.user_id}/>
                                                 )) }
                                                 
                                                 
